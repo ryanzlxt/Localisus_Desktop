@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Localimed.Services;
 
 namespace Localimed
 {
@@ -7,6 +8,7 @@ namespace Localimed
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
@@ -16,13 +18,17 @@ namespace Localimed
                     fonts.AddFont("Montserrat-Bold.ttf", "Montserrat");
                 });
 
-#if DEBUG
-    		builder.Logging.AddDebug();
-#endif
+            builder.Services.AddHttpClient<MedicamentoApiService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7140/");
+            });
+
+            builder.Services.AddTransient<Views.VisualizarEstoque>();
+
+            builder.Logging.AddDebug();
+
 
             return builder.Build();
         }
     }
 }
-
-// oiiiiiiiiiiiiiiiii

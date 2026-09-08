@@ -1,14 +1,12 @@
-using System.Windows.Input;
-using Microsoft.Maui.Controls;
-using Localimed.Views;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Localimed.ViewModel;
 
 public class LogPageViewModel : INotifyPropertyChanged
-    //BindableObject, se trata de um mecanismo de armazenamento de 
-    //dados que durante o desenvolvimento da aplicação exista
-    //uma sincronia entre a View e a ViewModel!
+//BindableObject, se trata de um mecanismo de armazenamento de 
+//dados que durante o desenvolvimento da aplicação exista
+//uma sincronia entre a View e a ViewModel!
 {
     private bool _botaoAtivo;
     private string _identificacaoUsuario;
@@ -21,17 +19,17 @@ public class LogPageViewModel : INotifyPropertyChanged
     public string IdentificacaoUsuario
     {
         get => _identificacaoUsuario;
-        set 
+        set
         {
             //aqui estamos passando a identificação do usuário
             //como um valor, caso ela esteja vazia o nosso botão não 
             //estará ativo!
-            if(_identificacaoUsuario != value)
+            if (_identificacaoUsuario != value)
             {
                 _identificacaoUsuario = value;
                 OnPropertyChanged(nameof(IdentificacaoUsuario));
             }
-            
+
 
         }
     }
@@ -48,17 +46,17 @@ public class LogPageViewModel : INotifyPropertyChanged
     //    }
     //}
 
-        //public ICommand será o comando que substituíra o Clicked q estava presente em LogPage.xaml.cs
-        //Agora esse command deverá ser instânciado na nossa View sendo
-        //a nossa primeira BindingContext
-        public ICommand BotaoContinuar { get; }
-        
-        public LogPageViewModel()
-        {
+    //public ICommand será o comando que substituíra o Clicked q estava presente em LogPage.xaml.cs
+    //Agora esse command deverá ser instânciado na nossa View sendo
+    //a nossa primeira BindingContext
+    public ICommand BotaoContinuar { get; }
 
-            BotaoContinuar = new Command(OnContinuarClicked);
+    public LogPageViewModel()
+    {
 
-        }
+        BotaoContinuar = new Command(OnContinuarClicked);
+
+    }
 
     public async void OnContinuarClicked()
     {
@@ -78,10 +76,10 @@ public class LogPageViewModel : INotifyPropertyChanged
             return;
         }
 
-        if (IdentificacaoUsuario == "12345")
+        if (IdentificacaoUsuario == "1")
         {
 
-            await Application.Current.MainPage.DisplayAlert("Sucesso", "Conexão certinha !", "jaé neguin");    
+            await Application.Current.MainPage.DisplayAlert("Sucesso", "Conexão certinha !", "jaé neguin");
 
             await Application.Current.MainPage.Navigation.PushAsync(new Views.HomePage());
 
