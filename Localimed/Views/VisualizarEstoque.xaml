@@ -137,7 +137,7 @@
 
                     <Label
                         Grid.Column="2"
-                        Text="Exige Termo"
+                        Text="Dosagem/exige termo"
                         FontAttributes="Bold"
                         TextColor="White"
                         HorizontalTextAlignment="Center"/>
@@ -154,7 +154,8 @@
 
                 -->
 
-                <Grid
+                <!--=========================-->
+                        <!--<Grid
                     BackgroundColor="#E9EEF5"
                     ColumnDefinitions="3*,1*,2*"
                     Padding="12">
@@ -340,7 +341,47 @@
                     TextColor="Black"
                     HorizontalTextAlignment="Center"/>
 
-                </Grid>
+                </Grid>-->
+                <!--=========================-->
+                
+       <CollectionView
+                ItemsSource="{Binding MedicamentosApi}"
+                HeightRequest="400">
+
+                    <CollectionView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Grid
+                BackgroundColor="#E9EEF5"
+                ColumnDefinitions="3*,1*,2*"
+                Padding="12">
+
+                                <Label
+                    Text="{Binding NomeMedicamento}"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+
+                                <Label
+                    Grid.Column="1"
+                    Text="{Binding Quantidade}"
+                    TextColor="Black"
+                    HorizontalTextAlignment="Center"/>
+
+                                <Label
+                    Grid.Column="2"
+                    Text="{Binding Dosagem}"
+                    TextColor="Black"
+                    HorizontalTextAlignment="Center"/>
+
+                            </Grid>
+
+                        </DataTemplate>
+
+                    </CollectionView.ItemTemplate>
+
+       </CollectionView>
+
 
                 <!-- Espaço -->
 

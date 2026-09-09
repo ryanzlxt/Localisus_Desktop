@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
-using Localimed.Services;
+﻿using Localimed.Services;
+using Microsoft.Extensions.Logging;
+using Localimed.ModelView;
+using Localimed.Views;
 
 namespace Localimed
 {
@@ -23,10 +25,11 @@ namespace Localimed
                 client.BaseAddress = new Uri("https://localhost:7140/");
             });
 
-            builder.Services.AddTransient<Views.VisualizarEstoque>();
+            builder.Services.AddTransient<VisualizarEstoque>();
 
             builder.Logging.AddDebug();
 
+            builder.Services.AddTransient<VisualizarEstoqueViewModel>();
 
             return builder.Build();
         }

@@ -1,7 +1,9 @@
 using Localimed.Model;
+using Localimed.Services;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+
 
 namespace Localimed.ModelView;
 
@@ -13,6 +15,7 @@ public class InserirMedicamentoViewModel : INotifyPropertyChanged
     private string _tipoMedicamento = string.Empty;
     private string _dosagemMedicamento = string.Empty;
     private DateTime _dataMedicamento = DateTime.Today;
+
 
     public string NomeMedicamento
     {
@@ -69,8 +72,14 @@ public class InserirMedicamentoViewModel : INotifyPropertyChanged
     public ICommand BotaoConfirmar { get; }
     public ICommand BotaoVoltar { get; }
 
-    public InserirMedicamentoViewModel()
+
+    private readonly MedicamentoApiService _api;
+
+    public InserirMedicamentoViewModel(
+        MedicamentoApiService api)
     {
+        _api = api;
+
         BotaoConfirmar = new Command(async () => await ConfirmarAsync());
         BotaoVoltar = new Command(async () => await VoltarAsync());
     }
@@ -107,22 +116,27 @@ public class InserirMedicamentoViewModel : INotifyPropertyChanged
             System.Globalization.CultureInfo.InvariantCulture,
             out var dosagem);
 
-        var medicamento = new Medicamento
+        var dto = new CriarMedicamentoDto
         {
             NomeMedicamento = NomeMedicamento.Trim(),
-            DosagemMedicamento = dosagem,
-            QuantidadeMedicamento = quantidade,
-            NumeroLoteMedicamento = lote,
-            DataMedicamento = DataMedicamento,
-            TipoMedicamento = TipoMedicamento,
-            ExigeTermo = TipoMedicamento.Equals("Controlado", StringComparison.OrdinalIgnoreCase)
+            Dosagem = (decimal)dosagem,
+            Quantidade = quantidade
         };
 
-        MedicamentoStore.Instance.Add(medicamento);
+        var sucesso =
+            await _api.CriarMedicamentoAsync(dto);
+
+        if (!sucesso)
+        {
+            await Alert(
+                "Erro",
+                "Não foi possível salvar o medicamento na API.");
+            return;
+        }
 
         await Alert(
             "Cadastro Realizado",
-            $"Medicamento '{medicamento.NomeMedicamento}' cadastrado com sucesso.");
+            $"Medicamento '{dto.NomeMedicamento}' cadastrado com sucesso.");
 
         NomeMedicamento = string.Empty;
         DosagemMedicamento = string.Empty;
