@@ -18,6 +18,16 @@ public class MedicamentoApiService
         return response.IsSuccessStatusCode;
     }
 
+    public async Task<bool> ExcluirMedicamentoAsync(
+    int idMedicamento)
+    {
+        var response =
+            await _httpClient.DeleteAsync(
+                $"api/medicamentos/{idMedicamento}");
+
+        return response.IsSuccessStatusCode;
+    }
+
     public MedicamentoApiService(HttpClient httpClient)
     {
         _httpClient = httpClient;

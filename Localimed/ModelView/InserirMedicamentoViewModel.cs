@@ -124,14 +124,15 @@ public class InserirMedicamentoViewModel : INotifyPropertyChanged
         };
 
         var sucesso =
-            await _api.CriarMedicamentoAsync(dto);
-
-        if (!sucesso)
+              await _api.CriarMedicamentoAsync(dto);
+            if (!sucesso)
         {
+
             await Alert(
                 "Erro",
-                "Não foi possível salvar o medicamento na API.");
+                "Medicamento não foi salvo na API");
             return;
+
         }
 
         await Alert(

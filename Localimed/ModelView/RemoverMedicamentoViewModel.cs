@@ -11,8 +11,7 @@ public class RemoverMedicamentoViewModel : INotifyPropertyChanged
     public ObservableCollection<Medicamento> Medicamentos =>
         MedicamentoStore.Instance.Medicamentos;
 
-    private Medicamento? _medicamentoSelecionado;
-    private string _mensagemSelecao =
+    private Medicamento? _medicamentoSelecionado; private string _mensagemSelecao =
         "Selecione o medicamento que deseja remover do estoque";
 
     public Medicamento? MedicamentoSelecionado

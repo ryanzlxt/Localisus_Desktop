@@ -137,6 +137,18 @@
                     TextColor="Black"         
                     CursorPosition="0"/>
 
+                <Entry
+                    x:Name="dosagemMedicamento"
+                    Placeholder="Dosagem (mg)"
+                    PlaceholderColor="Gray"
+                    Text="{Binding DosagemMedicamento, Mode=TwoWay}"
+                    Keyboard="Numeric"
+                    WidthRequest="500"
+                    HeightRequest="45"
+                    BackgroundColor="White"
+                    HorizontalOptions="Center"
+                    TextColor="Black"/> 
+
                 <!--
 
                                 =========================
